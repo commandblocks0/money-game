@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+    background: #111;
+    font-family: 'Poppins';
+    color: white;
+    height: 100vh;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 10px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-gap: 10px;
+}
+
+body > * {
+    padding: 20px;
+    background: #222;
+    border-radius: 10px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+header {
+    grid-column: span 3;
+}
+
+article {
+    grid-column: span 2;
+}
+
+#money {
+    font-size: 1.5rem;
+}
+
+/* Table */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    background: #333;
+    padding: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+tr:nth-child(even) {
+    background: #444;
+}
+
+th, td {
+    padding: 5px;
+}
+
+td:has(svg) {
+    display: flex;
+    justify-content: center;
+}
+
+/* article */
+
+article > div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 25%;
+}
+
+button,input,textarea {
+    padding: 10px;
+    border: none;
+    background: #333;
+    color: white;
+    border-radius: 10px;
+    font-size: 1.1rem;
+}
+
+input:focus,textarea:focus {
+    outline: none;
+}
+
+button:hover {
+    cursor: pointer;
+    filter: brightness(1.2);
+}
+
+textarea {
+    resize: none;
+    margin-top: 20px;
+}
+
+/* overview */
+
+#itemOverview {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #111;
+    border-radius: 10px;
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    z-index: 2;
+}
+
+#overviewImg {
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    object-fit: scale-down;
+}
+
+#overviewImg:not([src]) {
+    display: none;
+}
+
+#itemOverview button svg {
+    display: flex;
+    justify-content: center;
+}
+
+#itemOverview div {
+    display: flex;
+    gap: 10px;
+}
