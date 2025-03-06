@@ -1,10 +1,64 @@
 const data = JSON.parse(localStorage.getItem('moneyGame')) || {
     items: [],
-    userNotes: ''
+    userNotes: '',
+    payout: 1500,
+    day: 1,
+    lastOnline: Date.now(),
+    lastPayout: 0
 }
 
 const items = data.items
 let selectedItem = null
+
+if (!data.userNotes) {
+    data.userNotes = ''
+    saveData()
+}
+
+if (!data.payout) {
+    data.payout = 1500
+    saveData()
+}
+
+if (!data.day) {
+    data.day = 1
+    saveData()
+}
+
+if (!data.lastOnline) {
+    data.lastOnline = Date.now()
+    saveData()
+}
+
+if (!data.items) {
+    data.items = []
+    saveData()
+}
+
+if (!data.lastPayout) {
+    data.lastPayout = 0
+    saveData()
+}
+
+function updateDay() {
+    if ((Date.now() - data.lastOnline)/(1000*60*60*24) > 1) {
+        data.day++
+    }
+    data.lastOnline = Date.now()
+    saveData()
+
+    if (data.day - data.lastPayout >= 7) {
+        data.lastPayout = data.day
+        items.push({
+            name: 'Payout',
+            price: -data.payout,
+            img: null
+        })
+        saveData()
+    }
+
+    document.getElementById('day').innerText = `Day: ${data.day}`
+}
 
 function updateDisplay() {
     let money = 0
@@ -93,7 +147,18 @@ document.getElementById("itemPurchaseButton").addEventListener('click', () => {
     updateDisplay()
 })
 
+const payoutInput = document.getElementById("payout")
+payoutInput.value = data.payout
+payoutInput.addEventListener('change', () => {
+    if (!payoutInput.value) {
+        payoutInput.value = 1500
+        return
+    }
+    data.payout = parseInt(payoutInput.value)
+})
+
 document.getElementById("overviewCloseButton").addEventListener('click', closeOverview)
 document.getElementById("overviewRemoveButton").addEventListener('click', deleteItem)
 
 updateDisplay()
+updateDay()
