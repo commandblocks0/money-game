@@ -41,10 +41,14 @@ if (!data.lastPayout) {
 }
 
 function updateDay() {
-    if ((Date.now() - data.lastOnline)/(1000*60*60*24) > 1) {
-        data.day++
+    const now = new Date()
+    now.setHours(0, 0, 0, 0)
+    const diffTime = Math.abs(now - data.lastOnline)
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+    if (diffDays > 1) {
+        data.day += diffDays - 1
     }
-    data.lastOnline = Date.now()
+    data.lastOnline = now
     saveData()
 
     if (data.day - data.lastPayout >= 7) {
