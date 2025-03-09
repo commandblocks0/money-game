@@ -147,6 +147,11 @@ document.getElementById("itemPurchaseButton").addEventListener('click', () => {
     itemPrice.value = ''
     itemImg.value = ''
 
+    document.querySelector('.itemPurchased').style.display = 'flex'
+    setTimeout(() => {
+        document.querySelector('.itemPurchased').style.display = 'none'
+    }, 2000)
+
     saveData()
     updateDisplay()
 })
