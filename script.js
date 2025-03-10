@@ -26,7 +26,7 @@ if (!data.day) {
 }
 
 if (!data.lastOnline) {
-    data.lastOnline = Date.now()
+    data.lastOnline = Date.now().setHours(0)
     saveData()
 }
 
@@ -51,6 +51,12 @@ function updateDay() {
 
     if (data.day - data.lastPayout >= 7) {
         data.lastPayout = data.day
+        let payout = data.payout
+        items.forEach(item => {
+            if (item.price > 0) {
+                payout += item.price/100*5
+            }
+        })
         items.push({
             name: 'Payout',
             price: -data.payout,
