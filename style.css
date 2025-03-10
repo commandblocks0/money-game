@@ -166,3 +166,15 @@ textarea {
         opacity: 0;
     }
 }
+
+/* other */
+#reset {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: rgb(105, 0, 0);
+}

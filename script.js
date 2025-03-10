@@ -173,5 +173,12 @@ payoutInput.addEventListener('change', () => {
 document.getElementById("overviewCloseButton").addEventListener('click', closeOverview)
 document.getElementById("overviewRemoveButton").addEventListener('click', deleteItem)
 
+document.getElementById("reset").addEventListener('click', () => {
+    if (confirm('Are you sure you want to reset all data?')) {
+        localStorage.removeItem('moneyGame')
+        location.reload()
+    }
+})
+
 updateDisplay()
 updateDay()
