@@ -103,6 +103,7 @@ function updateDisplay() {
             selectedItem = item
             document.getElementById("itemOverview").style.display = 'flex'
             document.getElementById("overviewImg").src = item.img || 'https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM='
+            document.getElementById("overviewUrl").href = item.url.startsWith('http') ? item.url : 'https://' + item.url || ''
         })
     })
 }
@@ -144,6 +145,7 @@ document.getElementById("itemPurchaseButton").addEventListener('click', () => {
     const itemName = document.getElementById('itemName')
     const itemPrice = document.getElementById('itemPrice')
     const itemImg = document.getElementById('itemImg')
+    const itemUrl = document.getElementById('itemUrl')
 
     if (!itemName.value || !itemPrice.value) {
         alert('Please fill item name and price')
@@ -153,12 +155,14 @@ document.getElementById("itemPurchaseButton").addEventListener('click', () => {
     items.push({
         name: itemName.value,
         price: parseInt(itemPrice.value),
-        img: itemImg.value || null
+        img: itemImg.value || null,
+        url: itemUrl.value || null
     })
 
     itemName.value = ''
     itemPrice.value = ''
     itemImg.value = ''
+    itemUrl.value = ''
 
     popup("Item Purchased!")
 
