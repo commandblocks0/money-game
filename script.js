@@ -97,7 +97,7 @@ function updateDisplay() {
         row.appendChild(name)
         row.appendChild(price)
         row.appendChild(info)
-        itemTable.appendChild(row)
+        itemTable.insertBefore(row, itemTable.rows[1])
 
         info.addEventListener('click', () => {
             selectedItem = item
