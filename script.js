@@ -42,14 +42,12 @@ if (!data.lastPayout) {
 
 function updateDay() {
     const now = new Date()
-    now.setHours(0, 0, 0, 0)
-    const diffTime = Math.abs(now - data.lastOnline)
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-    if (diffDays > 1) {
-        data.day += diffDays - 1
+    now.setHours(0)
+    if (now - data.lastOnline >= 24 * 60 * 60 * 1000) {
+        data.day += 1
+        data.lastOnline = now
+        saveData()
     }
-    data.lastOnline = now
-    saveData()
 
     if (data.day - data.lastPayout >= 7) {
         data.lastPayout = data.day
@@ -59,6 +57,7 @@ function updateDay() {
             img: null
         })
         saveData()
+        popup("Payout day!")
     }
 
     document.getElementById('day').innerText = `Day: ${data.day}`
@@ -120,6 +119,14 @@ function deleteItem() {
     updateDisplay()
 }
 
+function popup(text) {
+    document.querySelector('.itemPurchased').innerText = text
+    document.querySelector('.itemPurchased').style.display = 'flex'
+    setTimeout(() => {
+        document.querySelector('.itemPurchased').style.display = 'none'
+    }, 2000)
+}
+
 const userNotes = document.getElementById('userNotes')
 userNotes.value = data.userNotes
 userNotes.addEventListener('input', () => {
@@ -147,10 +154,7 @@ document.getElementById("itemPurchaseButton").addEventListener('click', () => {
     itemPrice.value = ''
     itemImg.value = ''
 
-    document.querySelector('.itemPurchased').style.display = 'flex'
-    setTimeout(() => {
-        document.querySelector('.itemPurchased').style.display = 'none'
-    }, 2000)
+    popup("Item Purchased!")
 
     saveData()
     updateDisplay()
