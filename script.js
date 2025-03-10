@@ -57,9 +57,10 @@ function updateDay() {
                 payout += item.price/100*5
             }
         })
+        payout = Math.floor(payout)
         items.push({
             name: 'Payout',
-            price: -data.payout,
+            price: -payout,
             img: null
         })
         saveData()
