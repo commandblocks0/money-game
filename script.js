@@ -43,7 +43,7 @@ if (!data.lastPayout) {
 function updateDay() {
     const now = new Date()
     now.setHours(0)
-    data.lastOnline = data.lastOnline.setHours(0)
+    data.lastOnline = new Date(data.lastOnline).setHours(0)
     if (now - data.lastOnline >= 24 * 60 * 60 * 1000) {
         data.day += 1
         data.lastOnline = now
